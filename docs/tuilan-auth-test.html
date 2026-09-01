@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>推栏授权测试</title>
+
+  <script>
+    window.__XFE_UNIVERSAL_AUTH_CONFIG__ = {
+      daily: true,
+      limitOnlyHasJx3RoleAccessInDaily: false,
+      weixinQQ: false,
+      xoyo: false,
+      debug: false
+    };
+  </script>
+
+  <script
+    src="https://zhcdn01.xoyo.com/xassets/lib/universal-auth/1.0.0/universal-auth.js"
+    crossorigin="anonymous">
+  </script>
+</head>
+
+<body>
+  <h2>推栏授权测试</h2>
+
+  <p id="status">正在等待推栏授权……</p>
+
+  <p id="role"></p>
+  <p id="server"></p>
+  <p id="fields"></p>
+
+  <button id="copyToken" style="display:none;">复制 token</button>
+  <button id="copySession" style="display:none;">复制 session_id</button>
+
+  <script>
+    function mask(value) {
+      if (!value) return "无";
+
+      if (value.length <= 8) {
+        return "********";
+      }
+
+      return value.slice(0, 4) + "****" + value.slice(-4);
+    }
+
+    async function copySecret(value, name) {
+      await navigator.clipboard.writeText(value);
+      alert(name + " 已复制，请不要发送给其他人。");
+    }
+
+    function showResult(auth) {
+      const status = document.getElementById("status");
+
+      if (!auth) {
+        status.textContent = "没有获得授权信息";
+        return;
+      }
+
+      if (auth.status !== "success") {
+        status.textContent =
+          "授权失败：ua=" +
+          (auth.ua || "unknown") +
+          "，status=" +
+          auth.status;
+        return;
+      }
+
+      const data = auth.data || {};
+
+      status.textContent =
+        "授权成功：ua=" + auth.ua;
+
+      document.getElementById("role").textContent =
+        "角色：" + (data.person_name || "无");
+
+      document.getElementById("server").textContent =
+        "区服：" +
+        (data.zone_name || "无") +
+        " / " +
+        (data.server_name || "无");
+
+      document.getElementById("fields").textContent =
+        "返回字段：" + Object.keys(data).join(", ");
+
+      if (data.token) {
+        const button = document.getElementById("copyToken");
+        button.style.display = "inline-block";
+        button.textContent =
+          "复制 token（" + mask(data.token) + "）";
+        button.onclick =
+          () => copySecret(data.token, "token");
+      }
+
+      if (data.session_id) {
+        const button = document.getElementById("copySession");
+        button.style.display = "inline-block";
+        button.textContent =
+          "复制 session_id（" + mask(data.session_id) + "）";
+        button.onclick =
+          () => copySecret(data.session_id, "session_id");
+      }
+    }
+
+    let count = 0;
+
+    const timer = setInterval(() => {
+      count++;
+
+      if (window.THIRD_PARTY_AUTH) {
+        clearInterval(timer);
+        showResult(window.THIRD_PARTY_AUTH);
+        return;
+      }
+
+      if (count >= 60) {
+        clearInterval(timer);
+
+        document.getElementById("status").textContent =
+          "15 秒内没有获得 THIRD_PARTY_AUTH";
+      }
+    }, 250);
+  </script>
+</body>
+</html>
