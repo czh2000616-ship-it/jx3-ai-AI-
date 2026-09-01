@@ -164,9 +164,7 @@ class JX3APIServiceTests(unittest.IsolatedAsyncioTestCase):
         await self._assert_error(service, "jx3api_upstream_error")
 
     async def test_get_daily_rejects_non_json_response(self):
-        service = self._service_for_response(
-            FakeResponse(json_error=aiohttp.ContentTypeError())
-        )
+        service = self._service_for_response(FakeResponse(json_error=ValueError()))
 
         await self._assert_error(service, "jx3api_invalid_json")
 

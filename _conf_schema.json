@@ -23,7 +23,7 @@
     "description": "默认服务器",
     "type": "string",
     "default": "",
-    "hint": "V0.1 尚未使用，为后续角色查询保留配置入口。"
+    "hint": "jx3_role 未收到 server 参数时使用；留空则要求用户明确提供服务器。"
   },
   "http_timeout_seconds": {
     "description": "HTTP 超时时间（秒）",

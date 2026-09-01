@@ -4,7 +4,7 @@ from astrbot.api import AstrBotConfig, logger
 from astrbot.api.star import Context, Star
 
 from .services import JX3APIService
-from .tools import JX3DailyTool
+from .tools import JX3DailyTool, JX3RoleTool
 
 
 class JX3AgentPlugin(Star):
@@ -26,8 +26,12 @@ class JX3AgentPlugin(Star):
             ticket=config.get("jx3api_ticket", ""),
         )
         self._daily_tool = JX3DailyTool(service=self._service)
-        self.context.add_llm_tools(self._daily_tool)
-        logger.info("JX3 AI Agent loaded: tool=jx3_daily")
+        self._role_tool = JX3RoleTool(
+            service=self._service,
+            default_server=config.get("default_server", ""),
+        )
+        self.context.add_llm_tools(self._daily_tool, self._role_tool)
+        logger.info("JX3 AI Agent loaded: tools=jx3_daily,jx3_role")
 
     async def terminate(self) -> None:
         if not self._session.closed:
