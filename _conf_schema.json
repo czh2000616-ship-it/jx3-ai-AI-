@@ -1,0 +1,34 @@
+{
+  "jx3api_base_url": {
+    "description": "JX3API Base URL",
+    "type": "string",
+    "default": "https://www.jx3api.com",
+    "hint": "例如：https://www.jx3api.com"
+  },
+  "jx3api_token": {
+    "description": "JX3API Token",
+    "type": "string",
+    "default": "",
+    "secret": true,
+    "hint": "请在 AstrBot 插件配置中填写，不要写入代码或日志。"
+  },
+  "jx3api_ticket": {
+    "description": "JX3API Ticket",
+    "type": "string",
+    "default": "",
+    "secret": true,
+    "hint": "如接口需要 Ticket，请在 AstrBot 插件配置中填写。"
+  },
+  "default_server": {
+    "description": "默认服务器",
+    "type": "string",
+    "default": "",
+    "hint": "V0.1 尚未使用，为后续角色查询保留配置入口。"
+  },
+  "http_timeout_seconds": {
+    "description": "HTTP 超时时间（秒）",
+    "type": "int",
+    "default": 10,
+    "hint": "有效范围 1 到 60 秒。"
+  }
+}
