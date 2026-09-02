@@ -17,13 +17,13 @@
     "type": "string",
     "default": "",
     "secret": true,
-    "hint": "如接口需要 Ticket，请在 AstrBot 插件配置中填写。"
+    "hint": "jx3_arena 必需；只允许在 AstrBot 插件配置中填写。"
   },
   "default_server": {
     "description": "默认服务器",
     "type": "string",
     "default": "",
-    "hint": "jx3_role 未收到 server 参数时使用；留空则要求用户明确提供服务器。"
+    "hint": "jx3_role 或 jx3_arena 未收到 server 参数时使用；留空则要求用户明确提供服务器。"
   },
   "http_timeout_seconds": {
     "description": "HTTP 超时时间（秒）",

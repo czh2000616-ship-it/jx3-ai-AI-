@@ -1,6 +1,6 @@
 name: astrbot_plugin_jx3_agent
 display_name: JX3 AI Agent
-desc: 通过 LLM Tool Calling 查询剑网3真实日常和角色数据。
-version: 0.2.0
+desc: 通过 LLM Tool Calling 查询剑网3真实日常、角色和名剑战绩数据。
+version: 0.3.0
 author: jx3-ai
 astrbot_version: ">=4.5.1,<5"
