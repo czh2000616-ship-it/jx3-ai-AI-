@@ -12,3 +12,12 @@ venv/
 # Secrets / environment variables
 .env
 .env.*
+
+# Local verification / research
+validate_arena.py
+jadx-classes2/
+参考/
+
+# Local-only data
+.local/
+*.local.json
